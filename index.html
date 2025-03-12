@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CalcuLite</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-sizing: border-box;
+            background:rgb(25, 28, 46);
+        }
+        header{
+            box-sizing: border-box;
+            margin: 15px;
+            padding: 0px 15px;
+            border-radius: 25px;
+            height: 150px;
+            width: fit-content;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* background: linear-gradient(
+                to right,
+                rgb(255, 0, 0),
+                blue);
+            background-clip: text; */
+        }
+        header label{
+            font-size: 5rem;
+            font-weight: 800;
+            color: darkorange;
+            transition: color 0.2s ease-in-out;
+        }
+        header label:hover{
+            color:grey;
+            cursor: pointer;
+        }
+        .calc{
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background:transparent;
+        }
+        .calc form{
+            height: 500px;
+            width: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+            box-sizing: border-box;
+            background: transparent;
+            box-shadow: 12px 12px 12px rgba(0,0,0,0.5),-10px -10px 10px rgba(70, 75, 102, 0.493);
+            border-radius: 15px;
+        }
+        .display input{
+            box-sizing: border-box;
+            text-align: end;
+            width: 280px;
+            height: 70px;
+            font-size: 1.5rem;
+            padding: 5px 10px;
+            background: transparent;
+            border: none;
+            box-shadow: inset 5px 5px 5px rgba(0,0,0,0.5),inset -4px -4px 2px rgba(70, 75, 102, 0.322);
+            border-radius: 15px;
+            color: darkorange;
+            outline: none;
+            overflow-x: auto;
+            white-space: wrap;
+        }
+        .input{
+            height: 60%;
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .input section{
+            display: flex;
+            width: 80%;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+        }
+        .btn{
+            background:rgb(25, 28, 46);
+            border: none;
+            width: 50px;
+            height: 50px;
+            color: white;
+            font-size: larger;
+            box-shadow: 3px 3px 3px rgba(0,0,0,0.5),-3px -3px 3px rgba(70, 75, 102, 0.493);
+            border: none;
+            border-radius: 50%;
+            transform: scale(1);
+            transition: transform .2s ease-in-out;
+        }
+        .btn:active{
+            transform: scale(0.9);
+        }
+        .operator{
+            color:orange;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <label for="display">Calculite</label>
+    </header>
+    <section class="calc">
+        <form autocomplete="off">
+            <section class="display">
+                <input type="text" name="display" id="display" oninput="this.value=this.value.replace(/[^0-9+\-*/().]/g,'')">
+            </section>
+            <section class="input">
+                <section>
+                    <input type="button" value="AC" checkError();onclick="display.value = '' ;adjustFontSize() " class="btn operator">
+                    <input type="button" value="CE" onclick="checkError();display.value = display.value.toString().slice(0,-1) ;adjustFontSize()" class="btn operator">
+                    <input type="button" value="(" onclick="checkError();display.value += this.value ;adjustFontSize()" class="btn operator">
+                    <input type="button" value=")" onclick="checkError();display.value += this.value ;adjustFontSize()" class="btn operator">
+                </section>
+                <section>
+                    <input type="button" value="7" onclick="checkError();display.value += this.value ;adjustFontSize()" class="btn">
+                    <input type="button" value="8" onclick="checkError();display.value += this.value ;adjustFontSize()" class="btn">
+                    <input type="button" value="9" onclick="checkError();display.value += this.value ;adjustFontSize()" class="btn">
+                    <input type="button" value="/" onclick="checkError();display.value += this.value ;adjustFontSize()" class="btn operator">
+                </section>
+                <section>
+                    <input type="button" value="4" onclick="checkError();display.value += this.value ;adjustFontSize()" class="btn">
+                    <input type="button" value="5" onclick="checkError();display.value += this.value ;adjustFontSize()" class="btn">
+                    <input type="button" value="6" onclick="checkError();display.value += this.value ;adjustFontSize()" class="btn">
+                    <input type="button" value="*" onclick="checkError();display.value += this.value ;adjustFontSize()" class="btn operator">
+                </section>
+                <section>
+                    <input type="button" value="1" onclick="checkError();display.value += this.value ;adjustFontSize()" class="btn">
+                    <input type="button" value="2" onclick="checkError();display.value += this.value ;adjustFontSize()" class="btn">
+                    <input type="button" value="3" onclick="checkError();display.value += this.value ;adjustFontSize()" class="btn">
+                    <input type="button" value="-" onclick="checkError();display.value += this.value ;adjustFontSize()" class="btn operator">
+                </section>
+                <section>
+                    <input type="button" value="." onclick="checkError();display.value += this.value ;adjustFontSize()" class="btn">
+                    <input type="button" value="0" onclick="checkError();display.value += this.value ;adjustFontSize()" class="btn">
+                    <input type="button" value="+" onclick="checkError();display.value += this.value ;adjustFontSize()" class="btn operator">
+                    <input type="button" value="=" onclick="checkError(); calculate() ;adjustFontSize()" class="btn operator">
+                </section>
+            </section>
+        </form>
+    </section>
+
+
+    <script>
+        let display=document.querySelector('input[name="display"]')
+        function calculate(){
+            try{
+                let input=display.value;
+                input = input.replace(/(\d+(\.\d+)?)\(/g, "$1*(");
+                input = input.replace(/\)(\d+(\.\d+)?|\()/g, ")*$1");
+                let output=eval(input);
+                display.value=output;
+            }catch(error){
+                display.value="Syntax Error";
+            }
+            adjustFontSize();
+        }
+        document.addEventListener("keydown",function(event){
+            if(event.key ==="Enter" ){
+                event.preventDefault();
+                calculate();
+            }
+        })
+        function adjustFontSize(){
+            let baseSize = 1.5; // Default font size in rem
+            let maxSize = 2;    // Max font size
+            let minSize = 1;    // Min font size
+            let lengthFactor = 0.05; // How much to reduce per character
+            let newSize = maxSize - (display.value.length * lengthFactor);
+            display.style.fontSize = `${Math.max(minSize, newSize)}rem`;
+        }
+        display.addEventListener("input", adjustFontSize);
+        function checkError(){
+            let errorValues = ["Syntax Error", "Infinity", "-Infinity", "undefined"];
+            if (errorValues.includes(display.value)) {
+                display.value = "";
+            }
+        }
+    </script>
+</body>
+</html>
