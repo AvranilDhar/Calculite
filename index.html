@@ -127,7 +127,7 @@
             </section>
             <section class="input">
                 <section>
-                    <input type="button" value="AC" checkError();onclick="display.value = '' ;adjustFontSize() " class="btn operator">
+                    <input type="button" value="AC" onclick="display.value = '' ;adjustFontSize() " class="btn operator">
                     <input type="button" value="CE" onclick="checkError();display.value = display.value.toString().slice(0,-1) ;adjustFontSize()" class="btn operator">
                     <input type="button" value="(" onclick="checkError();display.value += this.value ;adjustFontSize()" class="btn operator">
                     <input type="button" value=")" onclick="checkError();display.value += this.value ;adjustFontSize()" class="btn operator">
